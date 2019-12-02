@@ -207,7 +207,7 @@ ax4.set_ylim(-1,1)
 ax4.set_zlim(-1.3,0.7)
 ax4.legend(fontsize='x-large')
 
-# plt.show()
+plt.show()
 
 
 
