@@ -110,7 +110,7 @@ ax.set_xlabel('X position (m)')
 ax.set_ylabel('Y position (m)')
 ax.set_zlabel('Z position (m)')
 
-# Notice drift in position
+# # Notice drift in position
 
 # Try to remove noise via Fourier analysis
     # Discrete Fourier Transform sample frequencies
@@ -132,9 +132,9 @@ ax3.legend()
 ax3.set_xlabel('Freqeuncy (Hz)')
 
 # Attenuate noise in X,Y below 1Hz by 0.2
-atten_x_fft = np.where(freq < 1,fft_x * 0.1, fft_x) 
-atten_y_fft = np.where(freq < 1,fft_y * 0.1, fft_y) 
-atten_z_fft = np.where(freq < 1,fft_z * 0.9, fft_z) 
+atten_x_fft = np.where(freq < 10,fft_x * 0.1, fft_x) 
+atten_y_fft = np.where(freq < 10,fft_y * 0.1, fft_y) 
+atten_z_fft = np.where((freq > 5) & (freq < 10),fft_z * 0.1, fft_z) 
 # Compute inverse of discrete Fourier Transform and save to dataframe
 df['x_ifft'] = np.fft.irfft(atten_x_fft,n=df.shape[0])
 df['y_ifft'] = np.fft.irfft(atten_y_fft,n=df.shape[0])
@@ -145,7 +145,7 @@ cols_raw = ['EARTH LINEAR ACCELERATION X','EARTH LINEAR ACCELERATION Y',
 cols_new = ['x_ifft','y_ifft','z_ifft']
 
 rawplot = df.plot(y=cols_raw,subplots=True,sharex=True,layout=(1,3),style='k',
-                   title=cols_raw,alpha=0.5)
+                    title=cols_raw,alpha=0.5)
 
 df.plot(y=cols_new,subplots=True,layout=(1,3),ax=rawplot,sharex=True,style='g')
 
@@ -207,16 +207,16 @@ ax4.set_ylim(-1,1)
 ax4.set_zlim(-1.3,0.7)
 ax4.legend(fontsize='x-large')
 
-plt.show()
+# plt.show()
 
 
 
-# # Calculate altitude from barometric pressure via hypsometric formula
-#     # height = RT/g * ln(P0/P)
-# R = 287.058 # gas specific constant for dry air (J⋅kg−1⋅K−1)
-# T = 300     # room temperature (K)
-# g = 9.81    # gravity (m/s/s)
+# # # Calculate altitude from barometric pressure via hypsometric formula
+# #     # height = RT/g * ln(P0/P)
+# # R = 287.058 # gas specific constant for dry air (J⋅kg−1⋅K−1)
+# # T = 300     # room temperature (K)
+# # g = 9.81    # gravity (m/s/s)
     
-# height = R*T/g * log(df['ATMOSPHERIC PRESSURE (hPa)'][0]/df['ATMOSPHERIC PRESSURE (hPa)'])
+# # height = R*T/g * log(df['ATMOSPHERIC PRESSURE (hPa)'][0]/df['ATMOSPHERIC PRESSURE (hPa)'])
 
-# df['Altitude (m)'] = height # create new altitude column in dataframe
+# # df['Altitude (m)'] = height # create new altitude column in dataframe
