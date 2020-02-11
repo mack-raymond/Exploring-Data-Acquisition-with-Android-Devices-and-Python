@@ -8,7 +8,7 @@ from mpl_toolkits import mplot3d
 plt.style.use('seaborn')
 
 # import data from CSV
-df = pd.read_csv('C:/Users/mackr/OneDrive/Documents/python_projects/MITRE/data/3 1m lifts.csv')
+df = pd.read_csv('data/3 1m lifts.csv')
 # Take a look at all sensor outputs
 df.plot(subplots=True,sharex=True,layout=(6,6),title=list(df.columns[:-3]),
         legend=False)
